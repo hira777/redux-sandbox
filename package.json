@@ -1,0 +1,12 @@
+{
+  "name": "redux-sandbox",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "http-server docs"
+  },
+  "author": "soarflat",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
+}

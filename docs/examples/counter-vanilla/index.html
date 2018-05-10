@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Redux basic example</title>
+<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+</head>
+<body>
+  <div>
+    <p>
+      Clicked: <span id="value">0</span> times
+      <button id="increment">+</button>
+      <button id="decrement">-</button>
+      <button id="incrementIfOdd">Increment if odd</button>
+      <button id="incrementAsync">Increment async</button>
+    </p>
+  </div>
+  <script>
+    // Reducer
+    function counter(state, action) {
+      if (typeof state === 'undefined') {
+        return 0;
+      }
+
+      // Actionに応じたstateを返す
+      switch (action.type) {
+        case 'INCREMENT':
+          return state + 1;
+        case 'DECREMENT':
+          return state - 1;
+        default:
+          return state
+      }
+    }
+
+    // Storeを生成する、第1引数にReducerを渡す
+    // 今回、Reducerとしてcounterを渡しているため
+    // Actionをdispatchする度に、counterが実行され、Actionに応じたstateを返す
+    const store = Redux.createStore(counter);
+    const valueEl = document.getElementById('value');
+
+    function render() {
+      valueEl.innerHTML = store.getState().toString();
+    }
+
+    render();
+
+    // change listener（Actionがdispatchされる度に呼ばれる関数）を追加する
+    // そのため、stateの更新がある度に呼ばれる
+    store.subscribe(render);
+
+    document.getElementById('increment')
+      .addEventListener('click', () => {
+        // Action（{ type: 'INCREMENT' }）をStoreにdispatch
+        store.dispatch({ type: 'INCREMENT' })
+      });
+    document.getElementById('decrement')
+      .addEventListener('click', () => {
+        // Action（{ type: 'DECREMENT' }）をStoreにdispatch
+        store.dispatch({ type: 'DECREMENT' })
+      });
+    document.getElementById('incrementIfOdd')
+      .addEventListener('click', () => {
+        if (store.getState() % 2 !== 0) {
+          // Action（{ type: 'INCREMENT' }）をStoreにdispatch
+          store.dispatch({ type: 'INCREMENT' })
+        }
+      });
+    document.getElementById('incrementAsync')
+      .addEventListener('click', () => {
+        setTimeout(() => {
+          // Action（{ type: 'INCREMENT' }）をStoreにdispatch
+          store.dispatch({ type: 'INCREMENT' })
+        }, 1000);
+      })
+  </script>
+</body>
+</html>
