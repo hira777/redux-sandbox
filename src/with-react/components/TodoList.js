@@ -1,21 +1,29 @@
+/**
+ * Presentational Components
+ * 目に見えるtodosを示すリスト
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
+import Todo from './Todo';
 
-const Todo = ({onClick, completed, text}) => (
-  <li
-   onClick={onClick}
-   style={{
-     textDecoration: completed ? 'line-trough' : 'none'
-   }}
-  >
-    {text}
-  </li>
+const TodoList = ({ todos, onTodoClick }) => (
+  <ul>
+    {todos.map((todo, index) => {
+      <Todo key={index} {...todo} onClick={() => onTodoClick(index)} />;
+    })}
+  </ul>
 );
 
-Todo.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  completed: PropTypes.boolean.isRequired,
-  text: PropTypes.string.isRequired,
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      completed: PropTypes.bool.isRequired,
+      text: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  onTodoClick: PropTypes.func.isRequired,
 };
 
-export default Todo
+export default TodoList;
