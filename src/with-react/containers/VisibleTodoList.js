@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { toggleTodo } from '../actions';
 import TodoList from '../components/TodoList';
-import VisibleTodoList from './VisibleTodoList';
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -14,12 +13,15 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
+// mapStateToProps（Presentational Componentsに渡すprops）を定義する
 const mapStateToProps = state => {
   return {
     todos: getVisibleTodos(state.todos, state.visibilityFilter),
   };
 };
 
+// `dispatch()`メソッドを受け取り、
+// Presentational Componentsに注入するコールバックのpropsを返すmapDispatchToPropsを定義する
 const mapDispatchToProps = dispatch => {
   return {
     onTodoClick: id => {
@@ -28,6 +30,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const FilterLink = connect(mapStateToProps, mapDispatchToProps)(TodoList);
+const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList);
 
 export default VisibleTodoList;
