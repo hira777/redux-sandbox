@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   entry: {
     'examples/counter/app': './src/counter/index.js',
+    'examples/with-middleware/app': './src/with-middleware/index.js',
     'examples/with-react/app': './src/with-react/index.js',
   },
 
