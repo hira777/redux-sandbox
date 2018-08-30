@@ -1,23 +1,24 @@
 # Middleware
 
-Redux Middleware は、Express または Koa Middleware と同じような概念的のもの。
+Action の dispatch から Reducer が実行されるまでの間、もしくは実行された後に独自の処理を追加できる仕組みのこと。
 
-これは Action の dispatch が Reducer に到達するまでの間にサードパーティの拡張ポイントを提供する（dispatch から Reducer の間に独自の処理を追加できる）。
+Express や Koa の Middleware と同じようなものである。
 
-ログやクラッシュ報告、非同期 API の呼び出し、ルーティングなどのために Redux Middleware は仕様されている。
+ログやクラッシュ報告、非同期 API の呼び出し、ルーティングなどの実装時に利用すると便利。
 
 ## Understanding Middleware
 
-Middleware は、非同期 API 呼び出しを含むさまざまな目的で使用できる。
+Middleware は、非同期 API 呼び出しを含むさまざまな目的で利用できる。
 
-例として、ロギングとクラッシュレポートを実装したい状況で、Middleware の利用にいたるプロセスを見ていく。
+例として、ロギングとクラッシュレポートを実装したい状況で、Middleware の利用にいたるプロセス（Middleware を利用しない場合と利用する場合の違い）を見ていく。
 
 ### Problem: Logging
 
-Redux の利点の 1 つは、state の変化を予測可能かつ透過的にすることである。Action が dispatch される度
- に、新しい state が計算され、保存される。state は自分自身では変更でない。特定の Action が dispatch された結果としてのみ変更できる。
+Redux の利点の 1 つは、state の変化を予測可能かつ透過的（扱いやすく状態）にすることである。
 
-そのため、アプリで起こるすべての Action を、その後に計算される state と共に記録すれば、何か問題が発生した時に、ログを振り返ってどの Action が state を破損させているかなどを把握できる。
+Action が dispatch される度に、新しい state が計算されて保存される。state は自分自身では変更できず特定の Action が dispatch された結果としてのみ変更できる。
+
+そのため、アプリで起こるすべての Action を、の後に計算される state と共に記録すれば、何か問題が発生した時にログを振り返ってどの Action が state を破損させているかなどを把握できる。
 
 これを Redux ではどのようにアプローチしていくか見ていく。
 
