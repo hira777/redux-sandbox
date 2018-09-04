@@ -14,13 +14,13 @@ Middleware は、非同期 API 呼び出しを含むさまざまな目的で利�
 
 ### Problem: Logging
 
-Redux の利点の 1 つは、state の変化を予測可能かつ透過的（扱いやすく状態）にすることである。
+Redux の利点の 1 つは、state の変化を予測可能にすることである。
 
 Action が dispatch される度に、新しい state が計算されて保存される。state は自分自身では変更できず特定の Action が dispatch された結果としてのみ変更できる。
 
-そのため、アプリで起こるすべての Action を、の後に計算される state と共に記録すれば、何か問題が発生した時にログを振り返ってどの Action が state を破損させているかなどを把握できる。
+そのため、アプリで起こるすべての Action と dispatch された結果である state を共に記録すれば、何か問題が発生した時にログを振り返ってどの Action が state を破損させているかなどを把握できる。
 
-これを Redux ではどのようにアプローチしていくか見ていく。
+これを Redux で実現するために、どのようにアプローチしていくか見ていく。
 
 #### Attempt #1: Logging Manuall
 
